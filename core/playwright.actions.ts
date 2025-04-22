@@ -1,0 +1,43 @@
+// core/playwrightActions.ts
+import { Page, Locator } from '@playwright/test';
+
+export class PlaywrightActions {
+  constructor(private page: Page) {}
+
+  async navigateTo(url: string) {
+    await this.page.goto(url);
+  }
+
+  async click(locator: string | Locator) {
+    const el = typeof locator === 'string' ? this.page.locator(locator) : locator;
+    await el.click();
+  }
+
+  async fill(locator: string | Locator, text: string) {
+    const el = typeof locator === 'string' ? this.page.locator(locator) : locator;
+    await el.fill(text);
+  }
+
+  async selectByLabel(locator: string, optionLabel: string) {
+    await this.page.selectOption(locator, { label: optionLabel });
+  }
+
+  async getTexts(locator: string): Promise<string[]> {
+    return this.page.locator(locator).allTextContents();
+  }  
+
+  async getNumbers(locator: string, stripChars: string[] = ['$']): Promise<number[]> {
+    return this.page.$$eval(
+      locator,
+      (els, stripChars) =>
+        els.map(e => {
+          let txt = e.textContent || '';
+          for (const ch of stripChars) {
+            txt = txt.replace(ch, '');
+          }
+          return parseFloat(txt.trim()) || 0;
+        }),
+      stripChars
+    );
+  }
+}

@@ -1,0 +1,52 @@
+# ─── Node.js ───────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ─── Environment ────────────────────────────────────────────────────────────────
+.env
+.env.*.local
+
+# ─── Playwright ────────────────────────────────────────────────────────────────
+# test artifacts
+test-results/
+playwright-report/
+# if you store snapshots under a dedicated folder:
+tests/visual-snapshots/
+
+# common directories for screenshots, videos, traces
+screenshots/
+videos/
+trace/
+.trace/
+*.zip
+
+# ─── Build / TypeScript ─────────────────────────────────────────────────────────
+# TypeScript incremental build info
+*.tsbuildinfo
+# if you compile to a dist folder
+dist/
+build/
+
+# ─── Coverage & Reporting ──────────────────────────────────────────────────────
+coverage/
+.nyc_output/
+coverage-final.json
+
+# ─── Logs ───────────────────────────────────────────────────────────────────────
+logs/
+*.log
+
+# ─── IDE / Editor ───────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sw?
+*.db
+
+# ─── OS files ───────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
