@@ -13,6 +13,7 @@ export class InventoryPage {
     private readonly continueButton = '#continue';
     private readonly finishButton = '#finish';
     private readonly confirmationHeader = '.complete-header';
+    private readonly errorMessageContainer = '.error-message-container.error';
   
     constructor(private actions: PlaywrightActions) {}
   
@@ -52,4 +53,9 @@ export class InventoryPage {
       const texts = await this.actions.getTexts(this.confirmationHeader);
       return texts[0] || '';
     }
+
+    async getErrorMessage(): Promise<string> {
+        const texts = await this.actions.getTexts(this.errorMessageContainer);
+        return texts[0] || '';
+      }
   }
