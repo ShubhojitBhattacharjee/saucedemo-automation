@@ -1,4 +1,3 @@
-// core/playwrightActions.ts
 import { Page, Locator } from '@playwright/test';
 
 export class PlaywrightActions {
@@ -22,6 +21,10 @@ export class PlaywrightActions {
     await this.page.selectOption(locator, { label: optionLabel });
   }
 
+  async getText(locator: string): Promise<string[]> {
+    return this.page.locator(locator).allTextContents() ?? '';
+  }
+
   async getTexts(locator: string): Promise<string[]> {
     return this.page.locator(locator).allTextContents();
   }  
@@ -39,5 +42,13 @@ export class PlaywrightActions {
         }),
       stripChars
     );
+  }
+
+  async count(locator: string): Promise<number> {
+    return this.page.locator(locator).count();
+  }
+
+  async isVisible(locator: string): Promise<boolean> {
+    return this.page.locator(locator).isVisible();
   }
 }

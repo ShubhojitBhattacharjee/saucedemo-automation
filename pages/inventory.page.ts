@@ -1,7 +1,8 @@
-// pages/inventory.page.ts
 import { PlaywrightActions } from '../core/playwright.actions';
+import { BasePage } from './base.page';
 
-export class InventoryPage {
+export class InventoryPage extends BasePage {
+    
     private readonly sortDropdown = '.product_sort_container';
     private readonly itemNames = '.inventory_item_name';
     private readonly itemPrices = '.inventory_item_price';
@@ -13,9 +14,15 @@ export class InventoryPage {
     private readonly continueButton = '#continue';
     private readonly finishButton = '#finish';
     private readonly confirmationHeader = '.complete-header';
-    private readonly errorMessageContainer = '.error-message-container.error';
+    private cartBadgeLocator = '.shopping_cart_badge';
+    private cartLinkLocator = '.shopping_cart_link';
+    private cartItemLocator = '.cart_item';
+    private checkoutButtonLocator = '#checkout';
+    
   
-    constructor(private actions: PlaywrightActions) {}
+    constructor(actions: PlaywrightActions) {
+        super(actions);
+      }
   
     async sortByNameDescending() {
       await this.actions.selectByLabel(this.sortDropdown, 'Name (Z to A)');
@@ -54,8 +61,21 @@ export class InventoryPage {
       return texts[0] || '';
     }
 
-    async getErrorMessage(): Promise<string> {
-        const texts = await this.actions.getTexts(this.errorMessageContainer);
+    async getCartBadgeCount(): Promise<string> {
+        const texts = await this.actions.getTexts(this.cartBadgeLocator);
         return texts[0] || '';
       }
+
+      async navigateToCart(): Promise<void> {
+        await this.actions.click(this.cartLinkLocator);
+      }
+
+      async getCartItemCount(): Promise<number> {
+        return this.actions.count(this.cartItemLocator);
+      }
+
+      async startCheckout() {
+        await this.actions.click(this.checkoutButtonLocator);
+      }
+
   }
