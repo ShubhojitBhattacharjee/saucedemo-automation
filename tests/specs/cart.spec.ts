@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { PlaywrightActions } from '../../core/playwright.actions';
 import { LoginPage } from '../../pages/login.page';
 import { InventoryPage } from '../../pages/inventory.page';
+import { appConfig } from '../../config/app.config';
 
 
 test.describe('Cart Operations Tests', () => {
@@ -13,7 +14,10 @@ test.describe('Cart Operations Tests', () => {
       actions = new PlaywrightActions(page);
       loginPage = new LoginPage(actions);
       inventoryPage = new InventoryPage(actions);
-      await loginPage.loginToApplication('standard_user', 'secret_sauce');
+      await loginPage.loginToApplication(
+            appConfig.credentials.user,
+            appConfig.credentials.pass
+        );
       await expect(page).toHaveURL(/inventory\.html$/);
     });
   

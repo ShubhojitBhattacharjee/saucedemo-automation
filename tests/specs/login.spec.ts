@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { PlaywrightActions } from '../../core/playwright.actions';
 import { LoginPage } from '../../pages/login.page';
+import { appConfig } from '../../config/app.config';
 
 test.describe('Login / Authentication Tests', () => {
   let actions: PlaywrightActions;
@@ -11,7 +12,10 @@ test.describe('Login / Authentication Tests', () => {
     loginPage = new LoginPage(actions);
 
     // Step 1: Navigate and log in
-    await loginPage.loginToApplication('standard_user', 'secret_sauce');
+    await loginPage.loginToApplication(
+      appConfig.credentials.user,
+      appConfig.credentials.pass
+    );
     // Assertion: we should now be on the inventory page
     await expect(page).toHaveURL(/inventory\.html$/);
 

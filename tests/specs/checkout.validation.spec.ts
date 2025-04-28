@@ -3,6 +3,7 @@ import { PlaywrightActions } from '../../core/playwright.actions';
 import { LoginPage }      from '../../pages/login.page';
 import { InventoryPage }  from '../../pages/inventory.page';
 import { CheckoutPage }   from '../../pages/checkout.page';
+import { appConfig } from '../../config/app.config';
 
 test.describe('Checkout Validation Tests', () => {
   let actions: PlaywrightActions;
@@ -17,7 +18,10 @@ test.describe('Checkout Validation Tests', () => {
     checkoutPage  = new CheckoutPage(actions);
 
     // 1) Login
-    await loginPage.loginToApplication('standard_user', 'secret_sauce');
+    await loginPage.loginToApplication(
+          appConfig.credentials.user,
+          appConfig.credentials.pass
+        );
     await expect(page).toHaveURL(/inventory\.html$/);
 
     // 2) Add multiple items to cart

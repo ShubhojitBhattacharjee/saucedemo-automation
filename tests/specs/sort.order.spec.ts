@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { PlaywrightActions } from '../../core/playwright.actions';
 import { LoginPage } from '../../pages/login.page';
 import { InventoryPage } from '../../pages/inventory.page';
+import { appConfig } from '../../config/app.config';
 
 test.describe('Sorting Order Tests', () => {
   let actions: PlaywrightActions;
@@ -14,7 +15,10 @@ test.describe('Sorting Order Tests', () => {
     inventoryPage = new InventoryPage(actions);
 
     // Step 1: Navigate and log in
-    await loginPage.loginToApplication('standard_user', 'secret_sauce');
+    await loginPage.loginToApplication(
+          appConfig.credentials.user,
+          appConfig.credentials.pass
+        );
     // Assertion: we should now be on the inventory page
     await expect(page).toHaveURL(/inventory\.html$/);
 
