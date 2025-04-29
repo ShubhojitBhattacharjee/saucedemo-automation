@@ -51,4 +51,8 @@ export class PlaywrightActions {
   async isVisible(locator: string): Promise<boolean> {
     return this.page.locator(locator).isVisible();
   }
+
+  async takeScreenshot(fullPage = true): Promise<Buffer> {
+    return this.page.screenshot({ fullPage });
+  }
 }
