@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { PlaywrightActions } from '../../core/playwright.actions';
 import { LoginPage } from '../../pages/login.page';
 import { InventoryPage } from '../../pages/inventory.page';
+import { appConfig } from '../../config/app.config';
 
 test.describe.only('SauceDemo Visual Test', () => {
   let actions: PlaywrightActions;
@@ -14,7 +15,10 @@ test.describe.only('SauceDemo Visual Test', () => {
     inventory = new InventoryPage(actions);
 
     // Step 1: Log in
-    await login.loginToApplication('standard_user', 'secret_sauce');
+    await login.loginToApplication(
+          appConfig.credentials.user,
+          appConfig.credentials.pass
+        );
     await expect(page).toHaveURL(/inventory\.html$/);
 
     // Step 2: Ensure products are visible
