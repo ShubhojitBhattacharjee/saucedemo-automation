@@ -4,7 +4,7 @@ import { LoginPage } from '../../pages/login.page';
 import { InventoryPage } from '../../pages/inventory.page';
 import { appConfig } from '../../config/app.config';
 
-test.describe.only('SauceDemo Visual Test', () => {
+test.describe('SauceDemo Visual Test', () => {
   let actions: PlaywrightActions;
   let login: LoginPage;
   let inventory: InventoryPage;

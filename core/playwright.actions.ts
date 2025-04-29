@@ -1,4 +1,6 @@
 import { Page, Locator } from '@playwright/test';
+import { AxeBuilder } from '@axe-core/playwright';
+import type { AxeResults } from 'axe-core';
 
 export class PlaywrightActions {
   constructor(private page: Page) {}
@@ -54,5 +56,9 @@ export class PlaywrightActions {
 
   async takeScreenshot(fullPage = true): Promise<Buffer> {
     return this.page.screenshot({ fullPage });
+  }
+
+  async scanAccessibility(): Promise<AxeResults> {
+    return new AxeBuilder({ page: this.page }).analyze();
   }
 }

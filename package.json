@@ -8,7 +8,9 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.1",
     "@playwright/test": "^1.52.0",
-    "@types/node": "^22.15.3"
+    "@types/node": "^22.15.3",
+    "axe-core": "^4.10.3"
   }
 }
