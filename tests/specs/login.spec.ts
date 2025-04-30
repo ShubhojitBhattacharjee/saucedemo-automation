@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { PlaywrightActions } from '../../core/playwright.actions';
 import { LoginPage } from '../../pages/login.page';
-import { appConfig } from '../../config/app.config';
 
 test.describe('Login / Authentication Tests', () => {
   let actions: PlaywrightActions;
@@ -10,18 +9,6 @@ test.describe('Login / Authentication Tests', () => {
   test.beforeEach(async ({ page }) => {
     actions = new PlaywrightActions(page);
     loginPage = new LoginPage(actions);
-
-    // Step 1: Navigate and log in
-    await loginPage.loginToApplication(
-      appConfig.credentials.user,
-      appConfig.credentials.pass
-    );
-    // Assertion: we should now be on the inventory page
-    await expect(page).toHaveURL(/inventory\.html$/);
-
-    // Assertion: At least one inventory item is displayed
-    const itemCount = await page.locator('.inventory_item').count();
-    expect(itemCount, 'Expected at least one inventory item').toBeGreaterThan(0);
   });
 
   test('Invalid credentials should show error', async () => {

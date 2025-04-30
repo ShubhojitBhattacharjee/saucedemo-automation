@@ -4,6 +4,7 @@ import { BasePage } from './base.page';
 export class InventoryPage extends BasePage {
     
     private readonly sortDropdown = '.product_sort_container';
+    private readonly items = '.inventory_item';
     private readonly itemNames = '.inventory_item_name';
     private readonly itemPrices = '.inventory_item_price';
     private readonly cartLink = '.shopping_cart_link';
@@ -44,6 +45,10 @@ export class InventoryPage extends BasePage {
       for (const name of names) {
         await this.actions.click(`.inventory_item:has-text("${name}") button`);
       }
+    }
+
+    async getInventoryItemsCount() {
+      return this.actions.count(this.items);
     }
   
     async proceedToCheckout(first: string, last: string, zip: string) {

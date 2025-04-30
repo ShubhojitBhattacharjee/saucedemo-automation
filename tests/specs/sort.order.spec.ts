@@ -23,7 +23,7 @@ test.describe('Sorting Order Tests', () => {
     await expect(page).toHaveURL(/inventory\.html$/);
 
     // Assertion: At least one inventory item is displayed
-    const itemCount = await page.locator('.inventory_item').count();
+    const itemCount = await inventoryPage.getInventoryItemsCount();
     expect(itemCount, 'Expected at least one inventory item').toBeGreaterThan(0);
   });
 

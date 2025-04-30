@@ -58,7 +58,9 @@ export class PlaywrightActions {
     return this.page.screenshot({ fullPage });
   }
 
-  async scanAccessibility(): Promise<AxeResults> {
-    return new AxeBuilder({ page: this.page }).analyze();
+  async scanAccessibility(tags: string[]): Promise<AxeResults> {
+    return new AxeBuilder({ page: this.page })
+      .withTags(tags)
+      .analyze();
   }
 }
