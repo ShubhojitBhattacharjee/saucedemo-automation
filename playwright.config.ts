@@ -6,7 +6,7 @@ export default defineConfig({
   snapshotDir: './visual',
   use: {
     baseURL: appConfig.baseURL,
-    headless: false,
+    headless: true,
     viewport: { width: 1280, height: 720 },
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
