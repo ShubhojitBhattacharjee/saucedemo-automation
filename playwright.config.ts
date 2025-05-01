@@ -9,7 +9,7 @@ export default defineConfig({
     headless: false,
     viewport: { width: 1280, height: 720 },
     screenshot: 'only-on-failure',
-    video: 'on',
+    video: 'retain-on-failure',
   },
   reporter: [['allure-playwright']]
 });
