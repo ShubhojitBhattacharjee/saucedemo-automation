@@ -26,7 +26,7 @@ test.describe('SauceDemo Accessibility Checks', () => {
       await inventoryPage.sortByNameDescending();
     });
   
-    test.only('Inventory Page should have zero WCAG2 A/AA violations', async () => {
+    test('Inventory Page should have zero WCAG2 A/AA violations', async () => {
       // 3) Run axe-core, focusing on core WCAG 2.1 A & AA rules
       const axeOptions = {
         runOnly: {

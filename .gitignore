@@ -51,3 +51,8 @@ logs/
 # ─── OS files ───────────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
+
+# ─── Allure Reports ───────────────────────────────────────────────────────────────────
+allure-report/
+allure-results/
+package-lock.json
