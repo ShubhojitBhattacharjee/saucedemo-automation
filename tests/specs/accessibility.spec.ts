@@ -3,6 +3,7 @@ import { PlaywrightActions } from '../../core/playwright.actions';
 import { InventoryPage } from '../../pages/inventory.page';
 import { LoginPage } from '../../pages/login.page';
 import { appConfig } from '../../config/app.config';
+import { stepLogger } from '../../utils/step.logger';
 
 
 test.describe('SauceDemo Accessibility Checks', () => {
@@ -16,18 +17,22 @@ test.describe('SauceDemo Accessibility Checks', () => {
       inventoryPage = new InventoryPage(actions);
   
       // 1) Login and land on inventory
+      stepLogger.stepId(1);
+      await stepLogger.step('Login to Application');
       await loginPage.loginToApplication(
         appConfig.credentials.user,
         appConfig.credentials.pass
       );
       await expect(page).toHaveURL(/inventory\.html$/);
   
-      // 2) Ensure the product list is rendered 
+      // 2) Ensure the product list is rendered
+      await stepLogger.step('Perform some action on the web page (Sort By Name)');
       await inventoryPage.sortByNameDescending();
     });
   
     test('Inventory Page should have zero WCAG2 A/AA violations', async () => {
       // 3) Run axe-core, focusing on core WCAG 2.1 A & AA rules
+      await stepLogger.step('Run axe-core, focusing on core WCAG 2.1 A & AA rules');
       const axeOptions = {
         runOnly: {
           type: 'tag',
@@ -37,6 +42,7 @@ test.describe('SauceDemo Accessibility Checks', () => {
       const results = await actions.scanAccessibility(axeOptions.runOnly.values);
   
       // 4) If violations exist, log actionable info
+      await stepLogger.step('If violations exist, log actionable info');
       if (results.violations.length > 0) {
         console.error('Detected accessibility violations:\n');
         for (const v of results.violations) {

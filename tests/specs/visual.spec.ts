@@ -3,6 +3,7 @@ import { PlaywrightActions } from '../../core/playwright.actions';
 import { LoginPage } from '../../pages/login.page';
 import { InventoryPage } from '../../pages/inventory.page';
 import { appConfig } from '../../config/app.config';
+import { stepLogger } from '../../utils/step.logger';
 
 test.describe('SauceDemo Visual Test', () => {
   let actions: PlaywrightActions;
@@ -15,6 +16,8 @@ test.describe('SauceDemo Visual Test', () => {
     inventory = new InventoryPage(actions);
 
     // Step 1: Log in
+    stepLogger.stepId(1);
+    await stepLogger.step('Login to Application');
     await login.loginToApplication(
           appConfig.credentials.user,
           appConfig.credentials.pass
@@ -22,14 +25,17 @@ test.describe('SauceDemo Visual Test', () => {
     await expect(page).toHaveURL(/inventory\.html$/);
 
     // Step 2: Ensure products are visible
+    await stepLogger.step('Perform some action on the web page (Sort By Name)');
     await inventory.sortByNameDescending(); // any action to ensure page is fully loaded
   });
 
   test('All Items page should match visual baseline', async () => {
     // Step 3: Capture current screenshot
+    await stepLogger.step('Capture current screenshot');
     const screenshot = await actions.takeScreenshot();
 
     // Assertion: Compare against stored snapshot
+    await stepLogger.step('Compare against stored snapshot');
     expect(screenshot).toMatchSnapshot('inventory-page.png');
   });
 });
