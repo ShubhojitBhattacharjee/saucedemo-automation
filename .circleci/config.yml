@@ -1,0 +1,40 @@
+version: 2.1
+
+executors:
+  playwright:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.44.1-jammy
+    working_directory: ~/repo
+
+jobs:
+  test-and-report:
+    executor: playwright
+    steps:
+      - checkout
+
+      - run:
+          name: Install dependencies
+          command: npm ci
+
+      - run:
+          name: Install Playwright browsers
+          command: npx playwright install
+
+      - run:
+          name: Run Playwright tests
+          command: npx playwright test
+
+      - run:
+          name: Generate Allure single-file report
+          command: |
+            npx allure generate allure-results \
+              --clean -o allure-report --single-file
+
+      - store_artifacts:
+          path: allure-report/index.html
+          destination: allure-report.html
+
+workflows:
+  build:
+    jobs:
+      - test-and-report
