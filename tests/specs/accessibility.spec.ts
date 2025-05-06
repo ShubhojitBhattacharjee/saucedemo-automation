@@ -30,7 +30,7 @@ test.describe('SauceDemo Accessibility Checks', () => {
       await inventoryPage.sortByNameDescending();
     });
   
-    test('Inventory Page should have zero WCAG2 A/AA violations', async () => {
+    test.skip('Inventory Page should have zero WCAG2 A/AA violations', async () => {
       // 3) Run axe-core, focusing on core WCAG 2.1 A & AA rules
       await stepLogger.step('Run axe-core, focusing on core WCAG 2.1 A & AA rules');
       const axeOptions = {

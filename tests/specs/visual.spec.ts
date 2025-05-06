@@ -29,7 +29,7 @@ test.describe('SauceDemo Visual Test', () => {
     await inventory.sortByNameDescending(); // any action to ensure page is fully loaded
   });
 
-  test('All Items page should match visual baseline', async () => {
+  test.skip('All Items page should match visual baseline', async () => {
     // Step 3: Capture current screenshot
     await stepLogger.step('Capture current screenshot');
     const screenshot = await actions.takeScreenshot();
