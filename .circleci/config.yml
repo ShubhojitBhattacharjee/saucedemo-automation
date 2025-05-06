@@ -9,11 +9,16 @@ executors:
 jobs:
   test-and-report:
     executor: playwright
+
+    # make JAVA_HOME available to all steps
+    environment:
+      JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+
     steps:
       - checkout
 
       - run:
-          name: Install dependencies
+          name: Install npm deps
           command: npm ci
 
       - run:
@@ -24,8 +29,15 @@ jobs:
           name: Run Playwright tests
           command: npx playwright test
 
+      # ────────── NEW STEP ──────────
       - run:
-          name: Generate Allure single-file report
+          name: Install Java for Allure
+          command: |
+            apt-get update
+            apt-get install -y openjdk-11-jre-headless
+
+      - run:
+          name: Generate Allure single‑file report
           command: |
             npx allure generate allure-results \
               --clean -o allure-report --single-file
